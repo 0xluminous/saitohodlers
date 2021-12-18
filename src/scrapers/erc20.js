@@ -3,9 +3,10 @@ import debug from "debug"
 import fetch from "node-fetch"
 
 const TOKEN_ADDRESS = "0xfa14fa6958401314851a17d6c5360ca29f74b57b";
+const SCRAPER_URL = `http://api.scraperapi.com?api_key=${process.env.SCRAPER_API_KEY}&url=`
 
 export default async function erc20() {
-    const url = `https://etherscan.io/token/${TOKEN_ADDRESS}`;
+    const url = `${SCRAPER_URL}https://etherscan.io/token/${TOKEN_ADDRESS}`;
     console.log(`hitting ${url}`);
 
     const response = await fetch(url);
