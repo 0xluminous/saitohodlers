@@ -1,37 +1,31 @@
 import debug from "debug"
-//const log = debug("saitohodlers:scraper:erc20");
+const log = debug("saitohodlers:scraper:erc20");
 import fetch from "node-fetch"
+import * as utils from "../utils"
 
 const TOKEN_ADDRESS = "0xfa14fa6958401314851a17d6c5360ca29f74b57b";
-const SCRAPER_URL = `http://api.scraperapi.com?api_key=${process.env.SCRAPER_API_KEY}&url=`
+const ETHERSCAN_URL = `https://etherscan.io/token/${TOKEN_ADDRESS}`;
 
 export default async function erc20() {
-    const url = `${SCRAPER_URL}https://etherscan.io/token/${TOKEN_ADDRESS}`;
-    console.log(`hitting ${url}`);
+    const url = utils.proxyURL(ETHERSCAN_URL);
+    log(`hitting ${url}`);
 
     const response = await fetch(url);
-    console.log(`response ${response.status} ${response.statusText}`);
+    log(`response ${response.status} ${response.statusText}`);
+    if (response.status !== 200) return 0;
 
     const body = await response.text();
-    //console.log(body);
-    if (response.status !== 200) return null;
 
     if (!body) return null;
-    console.log(`body length ${body.length}`);
+    log(`body length ${body.length}`);
 
     try {
         const pattern = body.match(/number of holders (?<holders>[\d,]+) and updated information of the token/);
-        const holders = Number(pattern.groups.holders.replace(",", ""));
-        if (!Number.isInteger(holders) || holders <= 0) {
-            console.log(`invalid holder number returned`);
-            return null;
-        }
-
-        console.log(`holders ${holders}`);
+        const holders = utils.parsePositiveIntegerFromString(pattern.groups.holders);
+        log(`holders ${holders}`);
         return holders;
     } catch (e) {
-        return null;
+        return 0;
     }
 }
 
-//    erc20().then(console.log);
