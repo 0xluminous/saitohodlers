@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import * as utils from "../src/utils"
-import * as scrapers from "../src/scrapers"
 
 export default function Home({ hodlers }) {
   return (
@@ -33,8 +32,10 @@ export default function Home({ hodlers }) {
 }
 
 
-export async function getStaticProps({ params }) {
-  const erc20 = await scrapers.erc20();
+export async function getStaticProps(obj={}) {
+  const prefix = process.env.VERCEL_ENV == "development" ? "http://" : "https://";
+  const response = await fetch(`${prefix}${process.env.VERCEL_URL}/api/erc20`);
+  const erc20 = await response.text();
   return {
     props: { hodlers: erc20 },
     revalidate: 100,

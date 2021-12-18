@@ -10,10 +10,10 @@ export default async function erc20() {
     console.log(`hitting ${url}`);
 
     const response = await fetch(url);
-    console.log(`response ${response.status}`);
-    console.log(`response ${response.statusText}`);
+    console.log(`response ${response.status} ${response.statusText}`);
+
     const body = await response.text();
-    console.log(body);
+    //console.log(body);
     if (response.status !== 200) return null;
 
     if (!body) return null;
