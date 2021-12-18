@@ -50,7 +50,7 @@ a {
   font-size: 15px;
 }
 
-@media (min-width:641px)  {
+@media (min-width:370px)  {
   .saito {
     font-size: 21px;
   }
