@@ -34,10 +34,14 @@ export default function Home({ hodlers }) {
 
 export async function getStaticProps(obj={}) {
   const prefix = process.env.VERCEL_ENV == "development" ? "http://" : "https://";
-  const response = await fetch(`${prefix}${process.env.VERCEL_URL}/api/erc20`);
-  const erc20 = await response.text();
+  const tokens = ["erc20", "run"];
+  let hodlers = 0;
+  for (const token of tokens) {
+    const response = await fetch(`${prefix}${process.env.VERCEL_URL}/api/${token}`);
+    hodlers += Number(await response.text());
+  }
   return {
-    props: { hodlers: erc20 },
+    props: { hodlers },
     revalidate: 100,
   };
 }
