@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "Hodlers" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "token" TEXT NOT NULL,
+    "hodlers" INTEGER NOT NULL
+);

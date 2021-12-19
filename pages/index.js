@@ -3,6 +3,8 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import * as utils from "../src/utils"
 
+import { PrismaClient } from '@prisma/client'
+
 export default function Home({ hodlers }) {
   return (
     <div className="container">
@@ -33,6 +35,17 @@ export default function Home({ hodlers }) {
 
 
 export async function getStaticProps(obj={}) {
+  const prisma = new PrismaClient()
+  /*
+  console.log(await prisma.hodlers.create({
+    data: {
+      token: "erc20",
+      hodlers: 420,
+    }
+  }));
+  */
+  const data = await prisma.hodlers.findMany({});
+  /*
   const prefix = process.env.VERCEL_ENV == "development" ? "http://" : "https://";
   const tokens = ["erc20", "run"];
   let hodlers = 0;
@@ -40,6 +53,8 @@ export async function getStaticProps(obj={}) {
     const response = await fetch(`${prefix}${process.env.VERCEL_URL}/api/${token}`);
     hodlers += Number(await response.text());
   }
+  */
+  let hodlers = data[0].hodlers;
   return {
     props: { hodlers },
     revalidate: 100,
