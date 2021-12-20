@@ -106,12 +106,12 @@ let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
 const cacheBustDuration = 5 * 1000;
 export async function getAllAndUpdateRandomOne() {
-    const diff = (Date.now() - lastUpdateDate);
-    if (diff >= cacheBustDuration) {
+//    const diff = (Date.now() - lastUpdateDate);
+//    if (diff >= cacheBustDuration) {
         log(`update cache (${diff / 1000}s since last)`);
         lastUpdateDate = Date.now();
         await updateOne();
-    }
+//    }
     return await getAll();
 }
 
