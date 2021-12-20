@@ -103,8 +103,8 @@ export async function getAll() {
 // get all hodlers and update the one that most out of date
 let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
-const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
-//const cacheBustDuration = 5 * 1000;
+//const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
+const cacheBustDuration = 5 * 1000;
 export async function getAllAndUpdateRandomOne() {
     const diff = (Date.now() - lastUpdateDate);
     if (diff >= cacheBustDuration) {
