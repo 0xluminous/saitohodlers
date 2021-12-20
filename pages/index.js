@@ -9,7 +9,6 @@ export default function Home({ hodlers, networks }) {
 
   function handleClick() {
     document.querySelectorAll(".saito-table .protocol").forEach(row => {
-      console.log("ROW", row);
       row.classList.toggle("hide-row");
     });
   }
@@ -17,9 +16,20 @@ export default function Home({ hodlers, networks }) {
   return (
     <div className="container">
       <Head>
-        <title>Saito Hodlers</title>
-        <meta name="description" content="10,473 Saito Hodlers" />
+        <title>{ utils.formatNumberForThousands(hodlers) } Saito Hodlers</title>
+        <meta name="description" content={ utils.formatNumberForThousands(hodlers) + " Saito Hodlers"} />
         <link rel="icon" href="/favicon.ico" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GX6YRB27C"></script>
+        <script dangerouslySetInnerHTML={{
+                  __html: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-8GX6YRB27C')`,}} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Saito Hodlers" />
+        <meta name="twitter:description" content={"There are " + utils.formatNumberForThousands(hodlers) + " Saito hodlers across " + networks.length + " networks"} />
+        <meta name="twitter:image" content="https://saitofaqs.com/social.png" />
       </Head>
 
       <section className="hero is-fullheight">
@@ -61,7 +71,6 @@ export default function Home({ hodlers, networks }) {
 
 
 export async function getStaticProps(obj={}) {
-  await scrapers.update(scrapers.BinanceSmartChain);
   const networks = await scrapers.getAllAndUpdateRandomOne();
   const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
