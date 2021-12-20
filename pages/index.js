@@ -29,7 +29,7 @@ export default function Home({ hodlers, networks }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Saito Hodlers" />
         <meta name="twitter:description" content={"There are " + utils.formatNumberForThousands(hodlers) + " Saito hodlers across " + networks.length + " networks"} />
-        <meta name="twitter:image" content="https://saitofaqs.com/social.png" />
+        <meta name="twitter:image" content="https://saitohodlers.com/social.png" />
       </Head>
 
       <section className="hero is-fullheight">
