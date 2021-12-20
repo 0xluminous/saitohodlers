@@ -84,7 +84,7 @@ export default function Home({ hodlers, networks }) {
 
 
 export async function getStaticProps(obj={}) {
-  const networks = await scrapers.getAllAndUpdateRandomOne();
+  const networks = await scrapers.getAll();
   const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
     props: { hodlers, networks },

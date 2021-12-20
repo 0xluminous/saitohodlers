@@ -86,7 +86,7 @@ export async function update(network) {
 // update a random network
 export async function updateOne() {
     const network = networks[Math.floor(Math.random()*networks.length)];
-    await update(network);
+    return await update(network);
 }
 
 // get recent hodlers for each network
@@ -100,18 +100,20 @@ export async function getAll() {
     });
 }
 
-// get all hodlers and update the one that most out of date
+// update random network
 let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
-//const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
-const cacheBustDuration = 5 * 1000;
-export async function getAllAndUpdateRandomOne() {
-//    const diff = (Date.now() - lastUpdateDate);
-//    if (diff >= cacheBustDuration) {
-//        log(`update cache (${diff / 1000}s since last)`);
+const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
+//const cacheBustDuration = 15 * 1000;
+export async function cachedUpdateOne() {
+    const diff = (Date.now() - lastUpdateDate);
+    console.log(diff, cacheBustDuration);
+    if (diff >= cacheBustDuration) {
+        log(`update cache (${diff / 1000}s since last)`);
         lastUpdateDate = Date.now();
         await updateOne();
-//    }
-    return await getAll();
+        return true;
+    }
+    return false;
 }
 
