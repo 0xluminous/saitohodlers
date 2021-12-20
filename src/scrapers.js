@@ -30,7 +30,9 @@ export const BSV = {
 };
 
 
-export const all = { Ethereum, BSV, BinanceSmartChain };
+export const networks = [ Ethereum, BSV, BinanceSmartChain ];
+
+export const protocols = Object.fromEntries(networks.map(network => [network.protocol, network] ));
 
 // fns
 
@@ -83,20 +85,26 @@ export async function update(network) {
 
 // update a random network
 export async function updateOne() {
-    const randomNetwork = Object.keys(all)[Math.floor(Math.random()*Object.keys(all).length)];
-    const network = all[randomNetwork];
+    const network = networks[Math.floor(Math.random()*networks.length)];
     await update(network);
 }
 
 // get recent hodlers for each network
 export async function getAll() {
-    return await prisma.$queryRaw`SELECT token, hodlers, timestamp from (SELECT * FROM hodlers ORDER BY timestamp DESC) GROUP BY token`;
+    const networks = await prisma.$queryRaw`SELECT token, hodlers, timestamp from (SELECT * FROM hodlers ORDER BY timestamp DESC) GROUP BY token`;
+    return networks.map(network => {
+        const n = Object.assign({}, protocols[network.token]);
+        delete n.regex;
+        network.network = n;
+        return network;
+    });
 }
 
 // get all hodlers and update the one that most out of date
 let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
 const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
+//const cacheBustDuration = 5 * 1000;
 export async function getAllAndUpdateRandomOne() {
     const diff = (Date.now() - lastUpdateDate);
     if (diff >= cacheBustDuration) {
