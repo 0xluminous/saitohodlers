@@ -13,7 +13,13 @@ Run the development server:
 
 ```bash
 npm install
-npm run dev
+vercel dev
+```
+
+if you want to show logging, start with
+
+```bash
+DEBUG=saitohodlers:* vercel dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to see the development site

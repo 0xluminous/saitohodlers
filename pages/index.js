@@ -63,7 +63,10 @@ export default function Home({ hodlers, networks }) {
       </section>
 
       <footer>
-        <a href="https://twitter.com/0xluminous">@0xluminous</a>
+        <ul>
+        <li><a href="https://twitter.com/0xluminous">@0xluminous</a></li>
+        <li><a href="https://github.com/0xluminous/saitohodlers">source</a></li>
+        </ul>
       </footer>
     </div>
   )

@@ -80,20 +80,24 @@ a {
   display: none;
 }
 
-footer {
-  text-align: center;
+footer ul {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
 }
 
-footer a {
+footer ul li {
+  float: right;
+  padding-left: 8px;
+  font-size: 12px;
+}
+
+footer ul li a {
   opacity: 0.5;
   transition: all 1s;
-  font-size: 12px;
-  position: absolute;
-  right: 4px;
-  bottom: 2px;
 }
 
-footer a:hover {
+footer ul li a:hover {
   opacity: 0.8;
 }
 
