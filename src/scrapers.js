@@ -15,6 +15,13 @@ export const Ethereum = {
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
 };
 
+export const BinanceSmartChain = {
+    name: "Binance Smart Chain",
+    protocol: "BEP-20",
+    url: "https://bscscan.com/token/0x3c6dad0475d3a1696b359dc04c99fd401be134da",
+    regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
+};
+
 export const BSV = {
     name: "BSV",
     protocol: "RUN",
@@ -23,13 +30,12 @@ export const BSV = {
 };
 
 
-export const all = { Ethereum, BSV };
-
+export const all = { Ethereum, BSV, BinanceSmartChain };
 
 // fns
 
 // hit live internet to scrape new value for network
-export async function scrape(network, proxy=false) {
+export async function scrape(network, proxy=true) {
     if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "development") { proxy = true }
     log(`scraping ${network.name} (${network.protocol}) (proxy=${proxy})`);
 
@@ -90,8 +96,8 @@ export async function getAll() {
 // get all hodlers and update the one that most out of date
 let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
-const cacheBustDuration = 60 * 1000; // 60 seconds
-export async function getAllAndUpdateOne() {
+const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
+export async function getAllAndUpdateRandomOne() {
     const diff = (Date.now() - lastUpdateDate);
     if (diff >= cacheBustDuration) {
         log(`update cache (${diff / 1000}s since last)`);
