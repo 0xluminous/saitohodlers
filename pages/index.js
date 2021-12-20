@@ -4,8 +4,6 @@ import styles from '../styles/Home.module.css'
 import * as utils from "../src/utils"
 import * as scrapers from "../src/scrapers"
 
-import { PrismaClient } from '@prisma/client'
-
 export default function Home({ hodlers }) {
   return (
     <div className="container">
@@ -36,30 +34,11 @@ export default function Home({ hodlers }) {
 
 
 export async function getStaticProps(obj={}) {
-  /*
-  console.log(await prisma.hodlers.create({
-    data: {
-      token: "erc20",
-      hodlers: 420,
-    }
-  }));
-  */
-  //const data = await scrapers.getCachedHodlers("erc20")
-  //console.log("DATA", data);
-  /*
-  const prefix = process.env.VERCEL_ENV == "development" ? "http://" : "https://";
-  const tokens = ["erc20", "run"];
-  let hodlers = 0;
-  for (const token of tokens) {
-    const response = await fetch(`${prefix}${process.env.VERCEL_URL}/api/${token}`);
-    hodlers += Number(await response.text());
-  }
-  */
-  const hodlers = 100;
-  //let hodlers = data[0].hodlers;
+  const networks = await scrapers.getAllAndUpdateOne();
+  const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
-    props: { hodlers },
-    revalidate: 100,
+    props: { hodlers, networks },
+    revalidate: 60 * 60,
   };
 }
 
