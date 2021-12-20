@@ -88,7 +88,7 @@ export async function getStaticProps(obj={}) {
   const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
     props: { hodlers, networks },
-    revalidate: 60 * 60,
+    revalidate: 1,
   };
 }
 
