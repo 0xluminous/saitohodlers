@@ -80,6 +80,23 @@ a {
   display: none;
 }
 
+footer {
+  text-align: center;
+}
+
+footer a {
+  opacity: 0.5;
+  transition: all 1s;
+  font-size: 12px;
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+}
+
+footer a:hover {
+  opacity: 0.8;
+}
+
 @media (min-width:370px)  {
   .saito {
     font-size: 21px;

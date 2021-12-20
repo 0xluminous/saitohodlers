@@ -53,6 +53,7 @@ export default function Home({ hodlers, networks }) {
       </section>
 
       <footer>
+        <a href="https://twitter.com/0xluminous">@0xluminous</a>
       </footer>
     </div>
   )
