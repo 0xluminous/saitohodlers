@@ -84,7 +84,7 @@ export async function updateOne() {
 
 // get recent hodlers for each network
 export async function getAll() {
-    return await prisma.$queryRaw`SELECT token, hodlers from (SELECT * FROM hodlers ORDER BY timestamp DESC) GROUP BY token`;
+    return await prisma.$queryRaw`SELECT token, hodlers, timestamp from (SELECT * FROM hodlers ORDER BY timestamp DESC) GROUP BY token`;
 }
 
 // get all hodlers and update the one that most out of date

@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import * as utils from "../src/utils"
 import * as scrapers from "../src/scrapers"
 
-export default function Home({ hodlers }) {
+export default function Home({ hodlers, networks }) {
   return (
     <div className="container">
       <Head>
@@ -20,6 +20,13 @@ export default function Home({ hodlers }) {
               <div className="saito-wrapper">
                 <img src="/redcube.png" alt="Saito Cube" />
                 <div className="saito">{ utils.formatNumberForThousands(hodlers) } Saito Hodlers</div>
+                <div className="saito-expanded">
+                  {networks.map(network => {
+                    return <div key={network.name}>
+                      <span className="hodlers">{utils.formatNumberForThousands(network.hodlers)}</span> {network.token} Hodlers
+                    </div>
+                  })}
+                </div>
               </div>
             </div>
           </div>
