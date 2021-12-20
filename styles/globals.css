@@ -26,38 +26,57 @@ a {
   box-sizing: border-box;
 }
 
-.content {
-  color: #D12F2D;
-  font-weight: bold;
-}
-
 .saito-wrapper {
   display: inline-block;
   position: relative;
-  padding-left: 40px;
+  cursor: pointer;
 }
 
 .saito-wrapper img {
   position: absolute;
-  top: 18px;
-  left: 25px;
+  top: -3px;
+  left: -17px;
   width: 35px;
 }
 
-.saito {
-  display: inline-block;
-  padding: 27px;
-  font-size: 15px;
+.saito-table {
+  margin-left: 15px;
 }
 
-.saito-expanded {
-  color: #33322F;
-  opacity: 0.9;
-  font-size: 14px;
-  margin-top: -24px;
-  line-height: 23px;
+.saito-table td {
+  padding: 5px 5px 5px 5px !important;
+  border: none !important;
+}
+
+.saito-table tr {
+  border: 0px;
+}
+
+.saito-table tr:first-child td {
+  font-weight: bold;
+  color: #D12F2D;
+}
+
+.saito-table td:first-child {
+  text-align: right;
+}
+
+.saito-table td:nth-child(2) {
   text-align: left;
-  margin-left: 30px;
+}
+
+.saito-table .protocol {
+  font-size: 15px;
+  color: #33322F;
+  font-weight: 500;
+}
+
+.hodler-label {
+  white-space: nowrap;
+}
+
+.hide-row {
+  display: none;
 }
 
 @media (min-width:370px)  {
@@ -65,21 +84,14 @@ a {
     font-size: 21px;
   }
 
-  .saito-wrapper {
-    padding-left: 53px;
-  }
-
   .saito-wrapper img {
-    top: 10px;
-    left: 16px;
+    top: -12px;
+    left: -36px;
     width: 55px;
   }
 
-  .saito-expanded {
-    opacity: 0.8;
-    font-size: 19px;
-    margin-top: -25px;
-    line-height: 30px;
+  .saito-table .protocol {
+    font-size: 18px;
   }
 }
 

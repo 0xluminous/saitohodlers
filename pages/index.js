@@ -1,10 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import moment from "moment"
 import * as utils from "../src/utils"
 import * as scrapers from "../src/scrapers"
 
+
 export default function Home({ hodlers, networks }) {
+
+  function handleClick() {
+    document.querySelectorAll(".saito-table .protocol").forEach(row => {
+      console.log("ROW", row);
+      row.classList.toggle("hide-row");
+    });
+  }
+
   return (
     <div className="container">
       <Head>
@@ -17,16 +26,26 @@ export default function Home({ hodlers, networks }) {
         <div className="hero-body has-text-centered">
           <div className="container">
             <div className="content">
-              <div className="saito-wrapper">
+              <div className="saito-wrapper" onClick={handleClick}>
                 <img src="/redcube.png" alt="Saito Cube" />
-                <div className="saito">{ utils.formatNumberForThousands(hodlers) } Saito Hodlers</div>
-                <div className="saito-expanded">
+                <table className="saito-table">
+                  <tbody>
+                  <tr key="hodlers" className="saito">
+                    <td>
+                      { utils.formatNumberForThousands(hodlers) }
+                    </td>
+                    <td>
+                      Saito Hodlers
+                    </td>
+                  </tr>
                   {networks.map(network => {
-                    return <div key={network.name}>
-                      <span className="hodlers">{utils.formatNumberForThousands(network.hodlers)}</span> {network.token} Hodlers
-                    </div>
+                    return <tr key={network.token} className="protocol hide-row" title={"Last updated " + moment(network.timestamp).fromNow() }>
+                      <td>{utils.formatNumberForThousands(network.hodlers)}</td>
+                      <td><span className="hodler-label">{network.token} Hodlers</span></td>
+                    </tr>
                   })}
-                </div>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
