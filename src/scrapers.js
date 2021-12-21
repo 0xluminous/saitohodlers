@@ -91,23 +91,21 @@ export async function updateOne() {
 
 // get recent hodlers for each network
 export async function getAll() {
-    //const networks = await prisma.$queryRaw`SELECT A.token, A.hodlers, A.timestamp from (SELECT * FROM Hodlers ORDER BY timestamp DESC) as A GROUP BY token`;
-    //const networks = await prisma.$queryRaw`SELECT token, hodlers, timestamp from Hodlers`;
-    const networks = (await prisma.hodlers.findMany({})).map(network => {
+    const networks = await prisma.$queryRaw`SELECT DISTINCT ON (token) token, hodlers, timestamp FROM "public"."Hodlers" ORDER BY token, timestamp DESC`;
+    return networks.map(network => {
         delete network.timestamp;
         const n = Object.assign({}, protocols[network.token]);
         delete n.regex;
         network.network = n;
         return network;
     });
-    return networks;
 }
 
 // update random network
 let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
-//const cacheBustDuration = 60 * 60 * 1 * 1000; // 1 hour
-const cacheBustDuration = 15 * 1000;
+//const cacheBustDuration = 60 * 60 * 1000; // 1 hour
+const cacheBustDuration = 60 * 15 * 1000; // 15 mins
 export async function cachedUpdateOne() {
     const diff = (Date.now() - lastUpdateDate);
     console.log(diff, cacheBustDuration);
