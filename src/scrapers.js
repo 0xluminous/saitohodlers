@@ -105,7 +105,7 @@ export async function getAll() {
 let lastUpdateDate = Date.now();
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
 //const cacheBustDuration = 60 * 60 * 1000; // 1 hour
-const cacheBustDuration = 60 * 4 * 1000; // 4 mins
+const cacheBustDuration = 30 * 1000; // 30 secs
 export async function cachedUpdateOne() {
     const diff = (Date.now() - lastUpdateDate);
     console.log(diff, cacheBustDuration);
