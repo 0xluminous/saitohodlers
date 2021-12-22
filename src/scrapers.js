@@ -2,6 +2,7 @@ import fetch from "node-fetch"
 import * as utils from "./utils.js"
 import debug from "debug"
 import { PrismaClient } from "@prisma/client"
+import moment from "moment"
 const log = debug("saitohodlers:scraper:index");
 
 const prisma = new PrismaClient();
@@ -93,6 +94,7 @@ export async function updateOne() {
 export async function getAll() {
     const networks = await prisma.$queryRaw`SELECT DISTINCT ON (token) token, hodlers, timestamp FROM "public"."Hodlers" ORDER BY token, timestamp DESC`;
     return networks.map(network => {
+        network.timeago = moment(network.timestamp).fromNow();
         delete network.timestamp;
         const n = Object.assign({}, protocols[network.token]);
         delete n.regex;
