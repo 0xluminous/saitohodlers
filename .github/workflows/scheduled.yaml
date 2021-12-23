@@ -8,4 +8,5 @@ jobs:
     steps:
       - name: Hourly cron job
         run: |
-          curl --url 'https://saitohodlers.com/api/update'
+          curl --request POST \
+          --url 'https://saitohodlers.com/api/update'
