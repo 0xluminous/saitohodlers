@@ -1,0 +1,11 @@
+name: Saito Hodlers Updater
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hourly cron job
+        run: |
+          curl --url 'https://saitohodlers.com/api/update'
