@@ -2,7 +2,6 @@ import fetch from "node-fetch"
 import * as utils from "./utils.js"
 import debug from "debug"
 import { PrismaClient } from "@prisma/client"
-import moment from "moment"
 const log = debug("saitohodlers:scraper:index");
 
 const prisma = new PrismaClient();
@@ -81,41 +80,48 @@ export async function update(network) {
     });
 
     return hodlers;
-    
 }
 
 // update a random network
 export async function updateOne() {
-    const network = networks[Math.floor(Math.random()*networks.length)];
-    return await update(network);
+    const all = await getAll();
+    let lowestTimestamp = Infinity;
+    let needsUpdate = null;
+    for (const network of all) {
+        const timestamp = (new Date(network.timestamp)).getTime();
+        if (timestamp < lowestTimestamp) {
+            lowestTimestamp = timestamp;
+            needsUpdate = network;
+        }
+    }
+
+    log(`updating oldest network cache ${needsUpdate.network.name}`);
+    return await update(needsUpdate.network);
 }
 
 // get recent hodlers for each network
 export async function getAll() {
     const networks = await prisma.$queryRaw`SELECT DISTINCT ON (token) token, hodlers, timestamp FROM "public"."Hodlers" ORDER BY token, timestamp DESC`;
     return networks.map(network => {
-        network.timeago = moment(network.timestamp).fromNow();
-        delete network.timestamp;
-        const n = Object.assign({}, protocols[network.token]);
-        delete n.regex;
-        network.network = n;
+        network.network = Object.assign({}, protocols[network.token]);
         return network;
     });
 }
 
 // update random network
-let lastUpdateDate = Date.now();
+let lastUpdateDate = -Infinity;
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
 //const cacheBustDuration = 60 * 60 * 1000; // 1 hour
-const cacheBustDuration = 30 * 1000; // 30 secs
+const cacheBustDuration = 60 * 5 * 1000; // 5 mins
 export async function cachedUpdateOne() {
     const diff = (Date.now() - lastUpdateDate);
-    console.log(diff, cacheBustDuration);
     if (diff >= cacheBustDuration) {
         log(`update cache (${diff / 1000}s since last)`);
         lastUpdateDate = Date.now();
         await updateOne();
         return true;
+    } else {
+        log(`skipping cache bust, only (${diff / 1000}s since last, looking for ${cacheBustDuration / 1000}s)`);
     }
     return false;
 }

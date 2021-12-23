@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import moment from "moment"
 import * as utils from "../src/utils"
 import * as scrapers from "../src/scrapers"
 
@@ -83,7 +84,12 @@ export default function Home({ hodlers, networks }) {
 
 
 export async function getStaticProps(obj={}) {
-  const networks = await scrapers.getAll();
+  const networks = (await scrapers.getAll()).map(network => {
+    network.timeago = moment(network.timestamp).fromNow();
+    delete network.timestamp;
+    delete network.network.regex;
+    return network;
+  });
   const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
     props: { hodlers, networks },
