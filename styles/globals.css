@@ -70,9 +70,17 @@ a {
 }
 
 .saito-table .protocol {
+  opacity: 0.8;
   font-size: 15px;
   color: #33322F;
   font-weight: 500;
+}
+
+.saito-table .hodler-updated {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 5px;
+  opacity: 0.6;
 }
 
 .hodler-label {
@@ -113,6 +121,12 @@ footer ul li a:hover {
 
   .saito-table .protocol {
     font-size: 18px;
+  }
+
+  .saito-table .hodler-updated {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 12px;
   }
 }
 

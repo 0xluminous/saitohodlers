@@ -44,7 +44,7 @@ export default function Home({ hodlers, networks }) {
                       </td>
                     </tr>
                     {networks.map(network => {
-                      return <tr key={network.token} className="protocol" title={"Last updated " + network.timeago}>
+                      return <tr key={network.token} className="protocol">
                         <td>
                           <a href={network.network.url}>
                               {utils.formatNumberForThousands(network.hodlers)}
@@ -53,6 +53,7 @@ export default function Home({ hodlers, networks }) {
                         <td>
                           <a href={network.network.url}>
                             <span className="hodler-label">{network.token} Hodlers</span>
+                            <span className="hodler-updated">updated {network.timeago}</span>
                           </a>
                         </td>
                       </tr>
