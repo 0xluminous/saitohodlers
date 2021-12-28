@@ -1,11 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import moment from "moment"
+import dynamic from 'next/dynamic'
 import * as utils from "../src/utils"
 import * as scrapers from "../src/scrapers"
 
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export default function Home({ hodlers, networks }) {
+export default function Home({ hodlers, networks, history }) {
 
   return (
     <div>
@@ -31,6 +33,7 @@ export default function Home({ hodlers, networks }) {
           <div className="hero-body has-text-centered">
             <div className="container">
               <div className="content">
+                <DailyHodlerChart history={history} />
                 <div className="saito-wrapper">
                   <img src="/redcube.png" alt="Saito Cube" />
                   <table className="saito-table">
@@ -77,8 +80,115 @@ export default function Home({ hodlers, networks }) {
   )
 }
 
+export function DailyHodlerChart({ history }) {
+  const options = {
+    tooltip: { enabled: true },
+    chart: {
+      type: 'line',
+      toolbar: { show: false },
+      zoom: { enabled: false },
+      height: '100px',
+      animations: { enabled: false },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 4,
+      curve: 'smooth'
+    },
+    colors: ['#C62C2B'],
+    yaxis: {
+      labels: {
+        show: false,
+      }
+    },
+    xaxis: {
+      labels: {
+        show: true,
+      },
+      axisTicks: {
+        show: true,
+      }
+    },
+    grid: { 
+      show: false
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: Object.keys(history).map(date => {
+        const monthyear = date.split("-");
+        monthyear.shift();
+        return monthyear.join("-");
+      })
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shade: 'dark',
+        shadeIntensity: 1,
+        type: 'horizontal',
+        opacityFrom: 1,
+        opacityTo: 1,
+        colorStops: [
+          {
+            offset: 0,
+            color: "#982221",
+            opacity: 1
+          },
+          {
+            offset: 20,
+            color: "#A62524",
+            opacity: 50
+          },
+          {
+            offset: 40,
+            color: "#B52927",
+            opacity: 50
+          },
+          {
+            offset: 60,
+            color: "#C23C2A",
+            opacity: 50
+          },
+          {
+            offset: 100,
+            color: "#D12F2D",
+            opacity: 1
+          }
+        ]
+      },
+    },
+
+  };
+  const series = [
+    {
+      name: 'Saito Hodlers',
+      data: Object.values(history)
+    },
+  ];
+
+  return (
+    <div className='chart'>
+    <Chart options={options} series={series} type='line' />
+
+    <style jsx>{`
+        .chart {
+          width: 100%;
+          max-width: 500px;
+          margin: auto;
+        }
+      `}</style>
+    </div>
+  );
+}
 
 export async function getStaticProps(obj={}) {
+
+  const history = Object.fromEntries(Object.entries(await scrapers.getDailyHistoryForSaito()).reverse());
+
   const networks = (await scrapers.getAll()).map(network => {
     network.timeago = moment(network.timestamp).fromNow();
     delete network.timestamp;
@@ -89,7 +199,7 @@ export async function getStaticProps(obj={}) {
   });
   const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
-    props: { hodlers, networks },
+    props: { hodlers, history, networks },
     revalidate: 1,
   };
 }

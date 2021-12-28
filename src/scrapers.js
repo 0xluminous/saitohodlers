@@ -34,6 +34,8 @@ export const networks = [ Ethereum, BSV, BinanceSmartChain ];
 
 export const protocols = Object.fromEntries(networks.map(network => [network.protocol, network] ));
 
+const NUM_NETWORKS = networks.length;
+
 // fns
 
 // hit live internet to scrape new value for network
@@ -106,6 +108,38 @@ export async function getAll() {
         network.network = Object.assign({}, protocols[network.token]);
         return network;
     });
+}
+
+// get best daily hodlers for each network
+export async function getDailyHistoryForNetworks() {
+    const networks = await prisma.$queryRaw`select timestamp::date, token, MAX(hodlers) from "public"."Hodlers" GROUP BY token, timestamp::date ORDER BY timestamp DESC LIMIT 100`;
+    return networks.map(network => {
+        network.network = Object.assign({}, protocols[network.token]);
+        return network;
+    });
+}
+
+// get history for each day
+export async function getDailyHistoryForSaito() {
+    const networks = await getDailyHistoryForNetworks();
+    const history = {};
+    for (const network of networks) {
+        if (history[network.timestamp]) {
+            history[network.timestamp].push(network.max);
+        } else {
+            history[network.timestamp] = [network.max];
+        }
+    }
+
+    for (const date of Object.keys(history)) {
+        if (history[date].length === NUM_NETWORKS) {
+            history[date] = history[date].reduce((a, b) => { return a + b });
+        } else {
+            delete history[date];
+        }
+    }
+
+    return history;
 }
 
 // update random network

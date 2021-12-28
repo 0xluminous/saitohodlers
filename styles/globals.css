@@ -26,21 +26,25 @@ a {
   box-sizing: border-box;
 }
 
+.content {
+  margin-top: -150px;
+}
+
 .saito-wrapper {
   display: inline-block;
   position: relative;
-  margin-top: 25px;
+  margin-top: -15px;
 }
 
 .saito-wrapper img {
   position: absolute;
   top: -4px;
-  left: -17px;
+  left: -3px;
   width: 35px;
 }
 
 .saito-table {
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
 .saito-table td {
@@ -110,9 +114,17 @@ footer ul li a:hover {
     font-size: 21px;
   }
 
+  .saito-wrapper {
+    margin-top: 25px;
+  }
+
+  .saito-table {
+    margin-left: 37px;
+  }
+
   .saito-wrapper img {
     top: -9px;
-    left: -36px;
+    left: -6px;
     width: 49px;
   }
 
@@ -120,10 +132,5 @@ footer ul li a:hover {
     font-size: 18px;
   }
 
-  .saito-table .hodler-updated {
-    display: inline-block;
-    margin-left: 5px;
-    font-size: 12px;
-  }
 }
 
