@@ -29,6 +29,7 @@ a {
 .saito-wrapper {
   display: inline-block;
   position: relative;
+  margin-top: 25px;
 }
 
 .saito-wrapper img {
@@ -40,10 +41,6 @@ a {
 
 .saito-table {
   margin-left: 15px;
-}
-
-.saito-table .saito {
-  cursor: pointer;
 }
 
 .saito-table td {
