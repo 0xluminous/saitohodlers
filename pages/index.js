@@ -84,6 +84,8 @@ export async function getStaticProps(obj={}) {
     delete network.timestamp;
     delete network.network.regex;
     return network;
+  }).sort((a, b) => {
+    return b.hodlers - a.hodlers;
   });
   const hodlers = networks.map(network => { return network.hodlers }).reduce((a, b) => a + b);
   return {
