@@ -79,10 +79,6 @@ a {
   white-space: nowrap;
 }
 
-.hide-row {
-  display: none;
-}
-
 footer ul {
   position: absolute;
   bottom: 2px;

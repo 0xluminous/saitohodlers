@@ -7,14 +7,8 @@ import * as scrapers from "../src/scrapers"
 
 export default function Home({ hodlers, networks }) {
 
-  function handleClick() {
-    document.querySelectorAll(".saito-table .protocol").forEach(row => {
-      row.classList.toggle("hide-row");
-    });
-  }
-
   return (
-    <div onClick={handleClick}>
+    <div>
       <div className="container">
         <Head>
           <title>{ utils.formatNumberForThousands(hodlers) } Saito Hodlers</title>
@@ -50,7 +44,7 @@ export default function Home({ hodlers, networks }) {
                       </td>
                     </tr>
                     {networks.map(network => {
-                      return <tr key={network.token} className="protocol hide-row" title={"Last updated " + network.timeago}>
+                      return <tr key={network.token} className="protocol" title={"Last updated " + network.timeago}>
                         <td>
                           <a href={network.network.url}>
                               {utils.formatNumberForThousands(network.hodlers)}
