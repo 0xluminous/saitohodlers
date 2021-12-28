@@ -33,18 +33,18 @@ a {
 .saito-wrapper {
   display: inline-block;
   position: relative;
-  margin-top: -15px;
+  margin-top: -5px;
 }
 
 .saito-wrapper img {
   position: absolute;
   top: -4px;
-  left: -3px;
+  left: -17px;
   width: 35px;
 }
 
 .saito-table {
-  margin-left: 25px;
+  margin-left: 15px;
 }
 
 .saito-table td {
@@ -118,13 +118,9 @@ footer ul li a:hover {
     margin-top: 25px;
   }
 
-  .saito-table {
-    margin-left: 37px;
-  }
-
   .saito-wrapper img {
     top: -9px;
-    left: -6px;
+    left: -36px;
     width: 49px;
   }
 
