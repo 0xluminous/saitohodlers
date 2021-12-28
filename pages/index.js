@@ -87,7 +87,7 @@ export function DailyHodlerChart({ history }) {
       type: 'line',
       toolbar: { show: false },
       zoom: { enabled: false },
-      height: '100px',
+      height: '250px',
       animations: { enabled: false },
     },
     dataLabels: {
@@ -97,32 +97,34 @@ export function DailyHodlerChart({ history }) {
       width: 4,
       curve: 'smooth'
     },
-    colors: ['#C62C2B'],
+    colors: ['#D12F2D'],
     yaxis: {
       labels: {
         show: false,
       }
     },
+    theme: {
+      monochrome: {
+        enabled: true,
+        color: '#D12F2D',
+        shadeTo: 'light',
+        shadeIntensity: 0.65
+      },
+    },
     xaxis: {
       labels: {
-        show: true,
+        show: false,
       },
       axisTicks: {
-        show: true,
-      }
+        show: false,
+      },
+      categories: Object.keys(history)
     },
     grid: { 
       show: false
     },
     dataLabels: {
       enabled: false,
-    },
-    xaxis: {
-      categories: Object.keys(history).map(date => {
-        const monthyear = date.split("-");
-        monthyear.shift();
-        return monthyear.join("-");
-      })
     },
     fill: {
       type: 'gradient',
