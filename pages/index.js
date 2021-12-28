@@ -82,7 +82,12 @@ export default function Home({ hodlers, networks, history }) {
 
 export function DailyHodlerChart({ history }) {
   const options = {
-    tooltip: { enabled: true },
+    tooltip: {
+      enabled: true,
+      y: {
+        formatter: (val) => utils.formatNumberForThousands(val)
+      },
+    },
     chart: {
       type: 'line',
       toolbar: { show: false },
