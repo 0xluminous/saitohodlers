@@ -25,8 +25,8 @@ export const BinanceSmartChain = {
 export const BSV = {
     name: "BSV",
     protocol: "RUN",
-    url: "https://bsv.run/7f6aa3e66b83205e283b8df39ff1d79c8ff3feacc5d1febf57650969f28f08a7_o2/",
-    regex: /Token holders: (?<holders>[\d]+)\n/,
+    url: "https://staging-backend.relayx.com/api/market/SAITO/orders",
+    regex: /\"owners\":(?<holders>[\d]+),/,
 };
 
 
