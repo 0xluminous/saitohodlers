@@ -24,3 +24,6 @@ DEBUG=saitohodlers:* vercel dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the development site
 
+## TODO
+- [ ] Add table that shows daily increase
+
