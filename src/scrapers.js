@@ -4,6 +4,12 @@ import debug from "debug"
 import { PrismaClient } from "@prisma/client"
 const log = debug("saitohodlers:scraper:index");
 
+const options = {
+    headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36",
+    }
+};
+
 const prisma = new PrismaClient();
 
 // Scrapers
@@ -39,14 +45,14 @@ const NUM_NETWORKS = networks.length;
 // fns
 
 // hit live internet to scrape new value for network
-export async function scrape(network, proxy=true) {
+export async function scrape(network, proxy=false) {
     if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "development") { proxy = true }
     log(`scraping ${network.name} (${network.protocol}) (proxy=${proxy})`);
 
     const url = (proxy ? utils.proxyURL(network.url) : network.url);
     log(`hitting ${url}`);
 
-    const response = await fetch(url);
+    const response = await fetch(url, options);
     log(`response ${response.status} ${response.statusText}`);
     if (response.status !== 200) return null;
 

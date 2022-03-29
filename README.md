@@ -25,5 +25,6 @@ DEBUG=saitohodlers:* vercel dev
 Open [http://localhost:3000](http://localhost:3000) to see the development site
 
 ## TODO
+- [ ] BUG: On mobile screen graph is causing horizontal scrollbar
 - [ ] Add table that shows daily increase
 
