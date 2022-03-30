@@ -28,4 +28,5 @@ Open [http://localhost:3000](http://localhost:3000) to see the development site
 - [ ] BUG: On mobile screen graph is causing horizontal scrollbar
 - [ ] Add table that shows daily increase
 - [ ] Migrate SaitoHolders to Ruby on Rails + Heroku
+- [ ] Add alert when scraping stops
 
