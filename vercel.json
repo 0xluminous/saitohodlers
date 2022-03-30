@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/update.js": {
+    "pages/api/update.js": {
       "maxDuration": 60
     }
   }
