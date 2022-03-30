@@ -46,7 +46,7 @@ const NUM_NETWORKS = networks.length;
 
 // hit live internet to scrape new value for network
 export async function scrape(network, proxy=false) {
-    if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "development") { proxy = true }
+    //if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "development") { proxy = true }
     log(`scraping ${network.name} (${network.protocol}) (proxy=${proxy})`);
 
     const url = (proxy ? utils.proxyURL(network.url) : network.url);
