@@ -17,7 +17,8 @@ export function parsePositiveIntegerFromString(str) {
   return num;
 }
 
-export function proxyURL(url, api_key=process.env.SCRAPER_API_KEY) {
-  return `http://api.scraperapi.com?api_key=${api_key}&url=${url}`;
+export function proxyURL(url, api_key=process.env.PROXIESAPI_KEY) {
+  return `http://api.proxiesapi.com/?auth_key=${api_key}&url=${url}`;
+  //return `http://api.scraperapi.com?api_key=${api_key}&url=${url}`;
 }
 

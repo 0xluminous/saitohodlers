@@ -19,6 +19,7 @@ export const Ethereum = {
     protocol: "ERC-20",
     url: "https://etherscan.io/token/0xfa14fa6958401314851a17d6c5360ca29f74b57b",
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
+    proxy: true
 };
 
 export const BinanceSmartChain = {
@@ -26,6 +27,7 @@ export const BinanceSmartChain = {
     protocol: "BEP-20",
     url: "https://bscscan.com/token/0x3c6dad0475d3a1696b359dc04c99fd401be134da",
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
+    proxy: true
 };
 
 export const BSV = {
@@ -33,6 +35,7 @@ export const BSV = {
     protocol: "RUN",
     url: "https://staging-backend.relayx.com/api/market/SAITO/orders",
     regex: /\"owners\":(?<holders>[\d]+),/,
+    proxy: false
 };
 
 
@@ -45,15 +48,21 @@ const NUM_NETWORKS = networks.length;
 // fns
 
 // hit live internet to scrape new value for network
-export async function scrape(network, proxy=false) {
+export async function scrape(network) {
     //if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "development") { proxy = true }
+    const start = Date.now();
+
+    const proxy = !!network.proxy;
+
     log(`scraping ${network.name} (${network.protocol}) (proxy=${proxy})`);
 
     const url = (proxy ? utils.proxyURL(network.url) : network.url);
     log(`hitting ${url}`);
 
+    const diff = Date.now() - start;
+
     const response = await fetch(url, options);
-    log(`response ${response.status} ${response.statusText}`);
+    log(`response ${response.status} ${response.statusText} in ${diff}ms`);
     if (response.status !== 200) return null;
 
     const body = await response.text();
