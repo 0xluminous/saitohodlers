@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/update.js": {
+      "maxDuration": 60
+    }
+  }
+}
