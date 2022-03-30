@@ -153,9 +153,9 @@ let lastUpdateDate = -Infinity;
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
 //const cacheBustDuration = 60 * 60 * 1000; // 1 hour
 const cacheBustDuration = 60 * 5 * 1000; // 5 mins
-export async function cachedUpdateOne() {
+export async function cachedUpdateOne(cacheBust=false) {
     const diff = (Date.now() - lastUpdateDate);
-    if (diff >= cacheBustDuration) {
+    if (cacheBust || diff >= cacheBustDuration) {
         log(`update cache (${diff / 1000}s since last)`);
         lastUpdateDate = Date.now();
         await updateOne();
