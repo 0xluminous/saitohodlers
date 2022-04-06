@@ -1,7 +1,7 @@
 import * as scrapers from "../../src/scrapers"
 import moment from "moment"
 
-const MAX_LAST_UPDATE_MINUTES = 60;
+const MAX_LAST_UPDATE_MINUTES = 120;
 
 export default async function handler(req, res) {
   const all = await scrapers.getAll();
