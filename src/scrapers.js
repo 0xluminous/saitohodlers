@@ -19,7 +19,7 @@ export const Ethereum = {
     protocol: "ERC-20",
     url: "https://etherscan.io/token/0xfa14fa6958401314851a17d6c5360ca29f74b57b",
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
-    proxy: true
+    proxy: false
 };
 
 export const BinanceSmartChain = {
@@ -27,7 +27,7 @@ export const BinanceSmartChain = {
     protocol: "BEP-20",
     url: "https://bscscan.com/token/0x3c6dad0475d3a1696b359dc04c99fd401be134da",
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
-    proxy: true
+    proxy: false
 };
 
 export const BSV = {
