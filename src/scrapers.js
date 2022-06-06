@@ -27,7 +27,7 @@ export const BinanceSmartChain = {
     protocol: "BEP-20",
     url: "https://bscscan.com/token/0x3c6dad0475d3a1696b359dc04c99fd401be134da",
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
-    proxy: false
+    proxy: true
 };
 
 export const BSV = {
