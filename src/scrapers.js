@@ -19,7 +19,7 @@ export const Ethereum = {
     protocol: "ERC-20",
     url: "https://etherscan.io/token/0xfa14fa6958401314851a17d6c5360ca29f74b57b",
     regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
-    proxy: false
+    proxy: true
 };
 
 export const BinanceSmartChain = {
@@ -35,7 +35,7 @@ export const BSV = {
     protocol: "RUN",
     url: "https://staging-backend.relayx.com/api/market/SAITO/orders",
     regex: /\"owners\":(?<holders>[\d]+),/,
-    proxy: false
+    proxy: true
 };
 
 
