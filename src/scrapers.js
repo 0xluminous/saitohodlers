@@ -17,9 +17,9 @@ const prisma = new PrismaClient();
 export const Ethereum = {
     name: "Ethereum",
     protocol: "ERC-20",
-    url: "https://etherscan.io/token/0xfa14fa6958401314851a17d6c5360ca29f74b57b",
-    regex: /number of holders (?<holders>[\d,]+) and updated information of the token/,
-    proxy: true
+    url: "https://ethplorer.io/address/0xfa14fa6958401314851a17d6c5360ca29f74b57b",
+    regex: /transactions and (?<holders>[\d,]+) holders/,
+    proxy: false
 };
 
 export const BinanceSmartChain = {
@@ -39,9 +39,9 @@ export const BSV = {
 };
 
 
-export const networks = [ Ethereum, BSV, BinanceSmartChain ];
+export const networks = [Ethereum, BSV, BinanceSmartChain];
 
-export const protocols = Object.fromEntries(networks.map(network => [network.protocol, network] ));
+export const protocols = Object.fromEntries(networks.map(network => [network.protocol, network]));
 
 const NUM_NETWORKS = networks.length;
 
@@ -162,7 +162,7 @@ let lastUpdateDate = -Infinity;
 //const cacheBustDuration = 60 * 60 * 12 * 1000; // 12 hours
 //const cacheBustDuration = 60 * 60 * 1000; // 1 hour
 const cacheBustDuration = 60 * 5 * 1000; // 5 mins
-export async function cachedUpdateOne(cacheBust=false) {
+export async function cachedUpdateOne(cacheBust = false) {
     const diff = (Date.now() - lastUpdateDate);
     if (cacheBust || diff >= cacheBustDuration) {
         log(`update cache (${diff / 1000}s since last)`);
