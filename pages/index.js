@@ -76,6 +76,8 @@ export default function Home({ hodlers, networks, history }) {
           </ul>
         </footer>
       </div>
+      <script data-collect-dnt="true" async defer src="https://x.cac.app/latest.js"></script>
+      <noscript><img src="https://x.cac.app/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
     </div>
   )
 }
