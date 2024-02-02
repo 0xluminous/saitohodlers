@@ -13,16 +13,17 @@ export default function Home({ hodlers, networks, history }) {
     <div>
       <div className="container">
         <Head>
-          <title>{ utils.formatNumberForThousands(hodlers) } Saito Hodlers</title>
-          <meta name="description" content={ utils.formatNumberForThousands(hodlers) + " Saito Hodlers"} />
+          <title>{utils.formatNumberForThousands(hodlers)} Saito Hodlers</title>
+          <meta name="description" content={utils.formatNumberForThousands(hodlers) + " Saito Hodlers"} />
           <link rel="icon" href="/favicon.ico" />
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GX6YRB27C"></script>
           <script dangerouslySetInnerHTML={{
-                    __html: `window.dataLayer = window.dataLayer || [];
+            __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-8GX6YRB27C')`,}} />
+            gtag('config', 'G-8GX6YRB27C')`,
+          }} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Saito Hodlers" />
           <meta name="twitter:description" content={"There are " + utils.formatNumberForThousands(hodlers) + " Saito hodlers across " + networks.length + " networks"} />
@@ -38,29 +39,29 @@ export default function Home({ hodlers, networks, history }) {
                   <img src="/redcube.png" alt="Saito Cube" />
                   <table className="saito-table">
                     <tbody>
-                    <tr key="hodlers" className="saito">
-                      <td>
-                        { utils.formatNumberForThousands(hodlers) }
-                      </td>
-                      <td>
-                        Saito Hodlers
-                      </td>
-                    </tr>
-                    {networks.map(network => {
-                      return <tr key={network.token} className="protocol">
+                      <tr key="hodlers" className="saito">
                         <td>
-                          <a href={network.network.url}>
-                              {utils.formatNumberForThousands(network.hodlers)}
-                          </a>
+                          {utils.formatNumberForThousands(hodlers)}
                         </td>
                         <td>
-                          <a href={network.network.url}>
-                            <span className="hodler-label">{network.token} Hodlers</span>
-                            <span className="hodler-updated">updated {network.timeago}</span>
-                          </a>
+                          Saito Hodlers
                         </td>
                       </tr>
-                    })}
+                      {networks.map(network => {
+                        return <tr key={network.token} className="protocol">
+                          <td>
+                            <a href={network.network.url}>
+                              {utils.formatNumberForThousands(network.hodlers)}
+                            </a>
+                          </td>
+                          <td>
+                            <a href={network.network.url}>
+                              <span className="hodler-label">{network.token} Hodlers</span>
+                              <span className="hodler-updated">updated {network.timeago}</span>
+                            </a>
+                          </td>
+                        </tr>
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -71,13 +72,13 @@ export default function Home({ hodlers, networks, history }) {
 
         <footer>
           <ul>
-          <li><a href="https://twitter.com/0xluminous">@0xluminous</a></li>
-          <li><a href="https://github.com/0xluminous/saitohodlers">source</a></li>
+            <li><a href="https://twitter.com/0xluminous">@0xluminous</a></li>
+            <li><a href="https://github.com/0xluminous/saitohodlers">source</a></li>
           </ul>
         </footer>
       </div>
       <script data-collect-dnt="true" async defer src="https://x.cac.app/latest.js"></script>
-      <noscript><img src="https://x.cac.app/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+      <noscript><img src="https://x.cac.app/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" /></noscript>
     </div>
   )
 }
@@ -127,7 +128,7 @@ export function DailyHodlerChart({ history }) {
       },
       categories: Object.keys(history)
     },
-    grid: { 
+    grid: {
       show: false
     },
     dataLabels: {
@@ -181,9 +182,9 @@ export function DailyHodlerChart({ history }) {
 
   return (
     <div className='chart'>
-    <Chart options={options} series={series} type='line' />
+      <Chart options={options} series={series} type='line' />
 
-    <style jsx>{`
+      <style jsx>{`
         .chart {
           width: 100%;
           max-width: 500px;
@@ -194,7 +195,7 @@ export function DailyHodlerChart({ history }) {
   );
 }
 
-export async function getStaticProps(obj={}) {
+export async function getStaticProps(obj = {}) {
 
   const history = Object.fromEntries(Object.entries(await scrapers.getDailyHistoryForSaito()).reverse());
 
