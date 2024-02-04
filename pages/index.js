@@ -28,6 +28,7 @@ export default function Home({ hodlers, networks, history }) {
           <meta name="twitter:title" content="Saito Hodlers" />
           <meta name="twitter:description" content={"There are " + utils.formatNumberForThousands(hodlers) + " Saito hodlers across " + networks.length + " networks"} />
           <meta name="twitter:image" content="https://saitohodlers.com/social.png" />
+          <script defer data-domain="saitohodlers.com" src="https://s.cac.app/js/script.outbound-links.js"></script>
         </Head>
 
         <section className="hero is-fullheight">
@@ -77,8 +78,6 @@ export default function Home({ hodlers, networks, history }) {
           </ul>
         </footer>
       </div>
-      <script data-collect-dnt="true" async defer src="https://x.cac.app/latest.js"></script>
-      <noscript><img src="https://x.cac.app/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" /></noscript>
     </div>
   )
 }
