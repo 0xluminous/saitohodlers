@@ -105,6 +105,7 @@ export async function updateOne() {
     let lowestTimestamp = Infinity;
     let needsUpdate = null;
     for (const network of all) {
+        if (network.token === "RUN") continue;
         const timestamp = (new Date(network.timestamp)).getTime();
         if (timestamp < lowestTimestamp) {
             lowestTimestamp = timestamp;
@@ -118,7 +119,7 @@ export async function updateOne() {
 
 // get recent hodlers for each network
 export async function getAll() {
-    const networks = await prisma.$queryRaw`SELECT DISTINCT ON (token) token, hodlers, timestamp FROM "public"."Hodlers" WHERE token != 'RUN' ORDER BY token, timestamp DESC`;
+    const networks = await prisma.$queryRaw`SELECT DISTINCT ON (token) token, hodlers, timestamp FROM "public"."Hodlers" ORDER BY token, timestamp DESC`;
     return networks.map(network => {
         network.network = Object.assign({}, protocols[network.token]);
         return network;
